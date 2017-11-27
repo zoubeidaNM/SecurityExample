@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Add Skill- Jobs</title>
+    <!-- Bootstrap core CSS-->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin.css" rel="stylesheet">
+</head>
+
+<body class="body_bg2">
+<div class="container">
+    <div class="card card-register mx-auto mt-5 border_solid">
+        <div class="card-header">Add a skill</div>
+        <div class="card-body">
+            <form autocomplete="off" action="#" th:action="@{/user/addskill}" th:object="${skill}" method="post">
+                <div th:if="${error}" class="has-error text-danger" th:text="${error_message}"></div>
+                    <div class="form-group">
+                        <label for="inputskill" class="control-label">Skill</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-rocket"></i>
+                            </div>
+                            <input class="form-control" id="inputskill" name="inputskill" placeholder="Enter a skill"
+                                   type="text" th:field="*{field}">
+                       </div>
+                        <span th:if="${#fields.hasErrors('field')}"
+                              th:errors="*{field}">Field has error</span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="selrating" class="control-label">Rating</label>
+                        <select id="selrating" name="selrating" th:field="*{rating}" class="select form-control">
+                            <option th:value="HighlySkilled">Highly Skilled</option>
+                            <option th:value="Proficient">Proficient</option>
+                            <option th:value="Familiar">Familiar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button name="submit" type="submit" class="btn btn-primary btn-block">Save Skill</button>
+                    </div>
+                </form>
+            <div class="text-center">
+                <a class="d-block medium" href="/user">Return Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+</body>
+
+</html>

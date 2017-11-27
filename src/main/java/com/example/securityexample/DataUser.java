@@ -1,7 +1,13 @@
 package com.example.securityexample;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="USER_DATA")
@@ -25,14 +31,35 @@ public class DataUser {
     private String lastName;
 
     @Column(name="password")
+    @NotEmpty
+    @NotNull
+    @Size(min=2, max=20)
     private String password;
 
-    @Column(name="username")
+    @Column(name="username", unique=true)
+    @NotEmpty
+    @NotNull
+    @Size(min=2, max=20)
     private String username;
+
+    private String companyName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name ="user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<UserRole> roles;
+
+    @ManyToMany
+    private Set<EducationalExperience> educationalExperiences;
+
+    @ManyToMany
+    private Set<JobExperience> jobExperiences;
+
+    @ManyToMany
+    private Set<Skill> skills;
+
+    @ManyToMany
+    private Set<JobOffer> jobOffers;
+
 
     public DataUser(String email, boolean enabled, String firstName, String lastName, String password, String username) {
         this.email = email;
@@ -41,9 +68,22 @@ public class DataUser {
         this.lastName = lastName;
         this.password = password;
         this.username = username;
+
+        roles = new HashSet<UserRole>();
+        educationalExperiences = new HashSet<EducationalExperience>();
+        jobExperiences = new HashSet<JobExperience>();
+        skills = new HashSet<Skill>();
+        jobOffers = new HashSet<JobOffer>();
+
     }
 
     public DataUser() {
+        roles = new HashSet<UserRole>();
+        educationalExperiences = new HashSet<EducationalExperience>();
+        jobExperiences = new HashSet<JobExperience>();
+        skills = new HashSet<Skill>();
+        jobOffers = new HashSet<JobOffer>();
+
     }
 
     public long getId() {
@@ -108,5 +148,63 @@ public class DataUser {
 
     public void setRoles(Collection<UserRole> roles) {
         this.roles = roles;
+    }
+
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public Set<EducationalExperience> getEducationalExperiences() {
+        return educationalExperiences;
+    }
+
+    public void setEducationalExperiences(Set<EducationalExperience> educationalExperiences) {
+        this.educationalExperiences = educationalExperiences;
+    }
+
+    public Set<JobExperience> getJobExperiences() {
+        return jobExperiences;
+    }
+
+    public void setJobExperiences(Set<JobExperience> jobExperiences) {
+        this.jobExperiences = jobExperiences;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public Set<JobOffer> getJobOffers() {
+        return jobOffers;
+    }
+
+    public void setJobOffers(Set<JobOffer> jobOffers) {
+        this.jobOffers = jobOffers;
+    }
+
+    public void addEducttionalExperience(EducationalExperience educationalExperience) {
+    educationalExperiences.add(educationalExperience);
+    }
+
+    public void addJobExperience(JobExperience jobExperience){
+        jobExperiences.add(jobExperience);
+    }
+
+
+    public void addSkill(Skill skill){
+        skills.add(skill);
+    }
+
+    public void addJobOffer(JobOffer jobOffer){
+        jobOffers.add(jobOffer);
     }
 }

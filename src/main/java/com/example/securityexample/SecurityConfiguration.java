@@ -28,16 +28,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/h2-console/**", "/register").permitAll()
+                .antMatchers("/", "/css/**","/js/**","/images/**","/fonts/**", "/h2-console/**",
+                "/vendor/**", "/register").permitAll()
+                .antMatchers("/index").access("hasAuthority('USER') or hasAuthority('RECRUITER')")
+                .antMatchers( "/user", "/user/**").access("hasAuthority('USER')")
+                .antMatchers( "/recruiter","/recruiter/**").access("hasAuthority('RECRUITER')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .and()
+                .formLogin().defaultSuccessUrl("/index",true)
+                .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").permitAll().permitAll()
-        .and()
-        .httpBasic();
+                .logoutSuccessUrl("/login").permitAll().permitAll().and().httpBasic();
 
         http
                 .csrf().disable();

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Recruiter profile-Jobs</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <!--[if lte IE 8]>
+    <script src="/js/html5shiv.js"></script><![endif]-->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/skel-layers.min.js"></script>
+    <script src="/js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="/css/skel.css"/>
+        <link rel="stylesheet" href="/css/style.css"/>
+        <link rel="stylesheet" href="/css/style-xlarge.css"/>
+    </noscript>
+</head>
+<body id="top">
+
+<!-- Header 1-->
+<div th:replace="homepage::header1"></div>
+<header2 th:fragment="header2" id="header2" class="skel-layers-fixed">
+    <h1><a href="#">Recruiter</a></h1>
+    <nav id="nav2">
+        <ul>
+            <li><a href="/recruiter">profile</a></li>
+            <li><a href="/recruiter/addjob">add Job Offer</a></li>
+            <li><a href="/recruiter/search">Search Resumes</a></li>
+            <li><a href="/logout" class="button special">Sign out</a></li>
+        </ul>
+    </nav>
+    </div>
+</header2>
+<!-- Main -->
+<section id="main" class="wrapper style2">
+    <header class="major">
+        <h2 th:inline="text">Welcome [[${user.username}]]</h2>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="4u">
+                <section class="special box_white">
+                    <a href="#" class="image fit"><img src="/images/pic03.jpg" alt=""/></a>
+                    <h3 th:inline="text">[[${user.firstName}]]</h3>
+                    <p th:inline="text">[[${user.email}]]</p>
+                    <p th:inline="text">[[${user.companyName}]]</p>
+                    <ul class="actions">
+                        <li><a href="#" class="button alt" disabled="disabled">change picture</a></li>
+                    </ul>
+                </section>
+                <hr/>
+                <section class="box_white">
+                    <h3 class="special">Recommended resumes</h3>
+                    <hr/>
+                    <ul class="alt">
+                        <li><a href="#">job1</a></li>
+                        <li><a href="#">job2</a></li>
+                        <li><a href="#">job3</a></li>
+                        <li><a href="#">job4</a></li>
+                        <li><a href="#">job5</a></li>
+                    </ul>
+                </section>
+            </div>
+            <div class="8u skel-cell-important">
+                <section class="box_white">
+                    <h2><i class="icon2 fa-briefcase major2"></i>Job offer</h2>
+                    <hr/>
+                    <div th:if="${#lists.isEmpty(user.jobOffers)}">
+                        <h3>** add a job offer</h3>
+                    </div>
+                    <div th:each="jobOffer :${user.jobOffers}">
+                        <h4>Job Title</h4>
+                        <p th:inline="text">[[${jobOffer.title}]]</p>
+                        <h4>Company</h4>
+                        <p th:inline="text">[[${jobOffer.companyName}]]</p>
+                        <h4>Loaction</h4>
+                        <p th:inline="text">[[${jobOffer.location}]]</p>
+                        <h4>Position Type</h4>
+                        <p th:inline="text">[[${jobOffer.type}]]</p>
+                        <hr/>
+                        <h4>Description</h4>
+                        <p th:inline="text">[[${jobOffer.description}]]</p>
+                         <h4>Qualification</h4>
+                        <hr/>
+                         <h4>Education</h4>
+                        <ul class="alt">
+                            <li><h4 th:inline="text">[[${jobOffer.education}]]</h4></li>
+                        </ul>
+                        <h4>skills</h4>
+                        <ul class="alt" th:each="skill :${jobOffer.jobOfferSkills}">
+                            <li><h4 th:inline="text"><i class="fa fa-rocket"></i>[[${skill.field}]], [[${skill.rating}]]</h4></li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <hr class="major"/>
+    </div>
+</section>
+
+<!-- Footer -->
+<div th:replace="homepage::footer1"></div>
+
+</body>
+</html>

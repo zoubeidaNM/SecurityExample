@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Add Job Experience - Jobs</title>
+    <!-- Bootstrap core CSS-->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin.css" rel="stylesheet">
+</head>
+
+<body class="body_bg2">
+<div class="container">
+    <div class="card card-register mx-auto mt-5 border_solid">
+        <div class="card-header">Add Job Experience</div>
+        <div class="card-body">
+            <form autocomplete="off" action="#" th:action="@{/user/addjobexperience}" th:object="${jobExperience}" method="post">
+                <div th:if="${error}" class="has-error text-danger" th:text="${error_message}"></div>
+
+                <div class="form-group">
+                    <label for="inputjobtitle">Job's Title</label>
+                    <input class="form-control" id="inputjobtitle" type="text"
+                           th:field="*{titleOfPosition}" placeholder="Enter Job's Title">
+                    <span th:if="${#fields.hasErrors('titleOfPosition')}"
+                          th:errors="*{titleOfPosition}">Job title error</span>
+                </div>
+                <div class="form-group">
+                    <label for="inputplace">Job's Place</label>
+                    <input class="form-control" id="inputplace" type="text"
+                           th:field="*{place}" placeholder="Enter job's place">
+                    <span th:if="${#fields.hasErrors('place')}"
+                          th:errors="*{place}">Place error</span>
+                </div>
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="inputstartmonth">Month</label>
+                            <input class="form-control" id="inputstartmonth" type="number"
+                                   min="1" max="12" step="1" value="1" th:field="*{startMonth}" >
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputstartyear">Year</label>
+                            <input class="form-control" id="inputstartyear" type="number"
+                                   min="1900" max="2017" step="1" value="2017" th:field="*{startYear}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label>End Date</label>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="inputendmonth">Month</label>
+                                <input class="form-control" id="inputendmonth" type="number"
+                                       min="1" max="12" step="1" value="1" th:field="*{endMonth}" >
+                             </div>
+                            <div class="col-md-6">
+                                <label for="inputendyear">Year</label>
+                                <input class="form-control" id="inputendyear" type="number"
+                                       min="1900" max="2017" step="1" value="2017" th:field="*{endYear}">
+                             </div>
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <label for="inputdesc">Description</label>
+                    <textarea row="10" class="form-control" id="inputdesc"
+                              th:field="*{description}"></textarea>
+                    <span th:if="${#fields.hasErrors('description')}"
+                          th:errors="*{description}">Description error</span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Save Job Experience</button>
+            </form>
+             <div class="text-center">
+                <a class="d-block medium" href="/user">Return Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+</body>
+
+</html>
