@@ -30,7 +30,8 @@
 
 <!-- Headers-->
 <div th:replace="homepage::header1"></div>
-<div th:replace="useraccount::header2"></div>
+<div sec:authorize="hasAuthority('USER')" th:replace="useraccount::header2"></div>
+<div sec:authorize="hasAuthority('RECRUITER')" th:replace="recruiterprofile::header2"></div>
 
 <div class="container">
     <h3></h3>
